@@ -1,18 +1,29 @@
 package com.example.noteapp.ui.adapters
 
 import android.content.ClipData.Item
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.noteapp.databinding.ItemNoteBinding
 import com.example.noteapp.ui.data.models.NoteModel
+import com.example.noteapp.R
 
 class NoteAdapter:
         androidx.recyclerview.widget.ListAdapter<NoteModel, NoteAdapter.ViewHolder>(DiffCallback()) {
     class ViewHolder(private val binding: ItemNoteBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: NoteModel) {
-            binding.tvItem.text = item.title
+            binding.itemTitle.text = item.title
+            binding.itemDescription.text = item.description
+            binding.itemTime.text = item.time
+            binding.itemDate.text = item.date
+
+            val context = binding.root.context
+
+            val drawable = ContextCompat.getDrawable(context, item.color.toInt())
+            binding.itemNote.background = drawable
         }
     }
 
