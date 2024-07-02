@@ -94,7 +94,7 @@ class DetailNoteFragment : Fragment() {
                 color = colorResource.toString()
             )
 
-                    if(noteId != -1){
+                    if (noteId != -1){
                         noteModel.id = noteId
                         App().getInstance()?.noteDao()?.updateNote(noteModel)
                     } else {

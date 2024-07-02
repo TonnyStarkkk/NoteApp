@@ -23,7 +23,7 @@ class OnBoardFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentOnBoardBinding.inflate(inflater, container, false)
+        binding = FragmentOnBoardBinding.inflate(layoutInflater)
         return binding.root
     }
 
@@ -32,11 +32,11 @@ class OnBoardFragment : Fragment() {
         initialize()
         setupListener()
 
-        if (!sharedPreference.isOnBoardingComplete()) {
+      /*  if (!sharedPreference.isOnBoardingComplete()) {
             sharedPreference.setOnBoardingComplete(true)
         } else {
             findNavController().navigate(R.id.singUpFragment)
-        }
+        }*/
     }
 
 

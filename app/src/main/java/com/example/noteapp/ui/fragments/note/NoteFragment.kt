@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -25,6 +26,7 @@ class NoteFragment : Fragment(), OnClickItem {
     private lateinit var noteAdapter: NoteAdapter
     private var isGridLayout: Boolean = false
     private lateinit var sharedPreference: SharedPreference
+    private lateinit var toggle: ActionBarDrawerToggle
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,7 +45,7 @@ class NoteFragment : Fragment(), OnClickItem {
         setupListeners()
         getData()
         updateLayoutButtonIcon()
-
+        setupDrawer()
     }
 
     private fun initialize() {
@@ -79,7 +81,7 @@ class NoteFragment : Fragment(), OnClickItem {
         if (isGridLayout){
             gridLayout.visibility = View.GONE
             linearLayout.visibility = View.VISIBLE
-        } else{
+        } else {
             gridLayout.visibility = View.VISIBLE
             linearLayout.visibility = View.GONE
         }
@@ -89,6 +91,33 @@ class NoteFragment : Fragment(), OnClickItem {
        App().getInstance()?.noteDao()?.getAll()?.observe(viewLifecycleOwner){
            noteAdapter.submitList(it)
        }
+    }
+
+    private fun setupDrawer() = with(binding) {
+        val drawerLayout = drawerLayout
+        val navView = navView
+        toggle = ActionBarDrawerToggle(
+            activity,
+            drawerLayout,
+            R.string.navigation_drawer_open,
+            R.string.navigation_drawer_close
+        )
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+
+        menu.setOnClickListener {
+            drawerLayout.openDrawer(navView)
+        }
+
+        navView.setNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.nav_home -> {
+                    findNavController().navigate(R.id.chatFragment)
+                }
+            }
+            drawerLayout.closeDrawer(navView)
+            true
+        }
     }
 
     override fun onLongClick(noteModel: NoteModel){

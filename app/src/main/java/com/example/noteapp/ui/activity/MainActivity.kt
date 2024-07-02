@@ -28,10 +28,10 @@ class MainActivity : AppCompatActivity() {
 
         sharedPreference = SharedPreference(this@MainActivity)
 
-        /*  if (!sharedPreference.isOnBoardingComplete()) {
+          if (!sharedPreference.isOnBoardingComplete()) {
               sharedPreference.setOnBoardingComplete(true)
           } else {
-              navController.navigate(R.id.noteFragment)
-          } */
+              navController.navigate(R.id.singUpFragment)
+          }
     }
 }

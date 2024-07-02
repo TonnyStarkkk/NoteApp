@@ -24,11 +24,11 @@ class SharedPreference(context: Context) {
         return sharedPreferences.getBoolean(IS_GRID_LAYOUT, false)
     }
 
-    fun setSignInComplete(isComplete: Boolean) {
-        sharedPreferences.edit().putBoolean(SIGN_IN_COMPLETE, isComplete).apply()
+    fun setRegistrationCompleted(completed: Boolean) {
+        sharedPreferences.edit().putBoolean(SIGN_IN_COMPLETE, completed).apply()
     }
 
-    fun isSignInComplete(): Boolean {
+    fun isRegistrationCompleted(): Boolean {
         return sharedPreferences.getBoolean(SIGN_IN_COMPLETE, false)
     }
 
