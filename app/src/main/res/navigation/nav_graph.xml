@@ -35,11 +35,19 @@
         <action
             android:id="@+id/action_onBoardFragment_to_noteFragment"
             app:destination="@id/noteFragment"/>
+        <action
+            android:id="@+id/action_onBoardFragment_to_singUpFragment"
+            app:destination="@id/singUpFragment" />
     </fragment>
     <fragment
         android:id="@+id/onBoardPagingFragment"
         android:name="com.example.noteapp.ui.fragments.onboard.OnBoardPagingFragment"
         android:label="fragment_on_board_paging"
         tools:layout="@layout/fragment_on_board_paging" />
+    <fragment
+        android:id="@+id/singUpFragment"
+        android:name="com.example.noteapp.ui.fragments.singin.SingUpFragment"
+        android:label="fragment_sing_up"
+        tools:layout="@layout/fragment_sing_up" />
 
 </navigation>

@@ -8,4 +8,8 @@
     <string name="Search_for_notes">Поиск заметок</string>
     <string name="add">add</string>
     <string name="ready">Готово</string>
+    <string name="registration_via_google">Регистрация через Google</string>
+    <string name="registration">Регистрация</string>
+    <string name="sign_in_google">Войти через Google</string>
+    <string name="default_web_client_id">60475452810-rjebnb4gul7ibavniliqb3i0ruqvte2i.apps.googleusercontent.com</string>
 </resources>

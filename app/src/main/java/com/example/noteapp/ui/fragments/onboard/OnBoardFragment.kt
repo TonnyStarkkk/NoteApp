@@ -13,11 +13,12 @@ import com.airbnb.lottie.LottieConfig
 import com.example.noteapp.R
 import com.example.noteapp.databinding.FragmentOnBoardBinding
 import com.example.noteapp.ui.adapters.OnBoardViewPagerAdapter
+import com.example.noteapp.utils.SharedPreference
 
 class OnBoardFragment : Fragment() {
 
     private lateinit var binding: FragmentOnBoardBinding
-
+    private lateinit var sharedPreference: SharedPreference
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -30,7 +31,14 @@ class OnBoardFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initialize()
         setupListener()
+
+        if (!sharedPreference.isOnBoardingComplete()) {
+            sharedPreference.setOnBoardingComplete(true)
+        } else {
+            findNavController().navigate(R.id.singUpFragment)
+        }
     }
+
 
     private fun initialize() {
         binding.viewpager2.adapter = OnBoardViewPagerAdapter(this@OnBoardFragment)
@@ -53,7 +61,7 @@ class OnBoardFragment : Fragment() {
                 }else{
                     binding.tvStart.visibility = View.INVISIBLE
                     binding.tvStart.setOnClickListener{
-                        findNavController().navigate(R.id.noteFragment)
+                        findNavController().navigate(R.id.action_onBoardFragment_to_singUpFragment)
                     }
                 }
             }
