@@ -29,6 +29,7 @@ class SingUpFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var sharedPreference: SharedPreference
+
     private var signInLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
@@ -50,7 +51,7 @@ class SingUpFragment : Fragment() {
     ): View {
         binding = FragmentSingUpBinding.inflate(inflater, container, false)
         auth = FirebaseAuth.getInstance()
-        sharedPreference = SharedPreference(requireContext())
+
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
@@ -61,15 +62,10 @@ class SingUpFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        sharedPreference = SharedPreference(requireContext())
 
-        val isOnBoardShown = sharedPreference.isOnBoardingComplete()
-        val currentUser = auth.currentUser
-
-        if (!isOnBoardShown) {
-            findNavController().navigate(R.id.singUpFragment)
-            sharedPreference.setOnBoardingComplete(true)
-        } else if (currentUser != null || sharedPreference.isSignInComplete()) {
-            updateUI(currentUser)
+        if (sharedPreference.isRegistrationCompleted()) {
+            findNavController().navigate(R.id.noteFragment)
         } else {
             setupListener()
         }
@@ -91,7 +87,6 @@ class SingUpFragment : Fragment() {
         auth.signInWithCredential(credential)
             .addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
-                    sharedPreference.setSignInComplete(true)
                     val user = auth.currentUser
                     updateUI(user)
                 } else {
@@ -102,6 +97,7 @@ class SingUpFragment : Fragment() {
 
     private fun updateUI(user: FirebaseUser?) {
         if (user != null) {
+            sharedPreference.setRegistrationCompleted(true)
             findNavController().navigate(R.id.noteFragment)
         } else {
             Toast.makeText(requireContext(), "Аутентификация не удалась", Toast.LENGTH_LONG).show()
