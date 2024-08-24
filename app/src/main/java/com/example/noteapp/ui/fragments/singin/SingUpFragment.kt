@@ -30,7 +30,7 @@ class SingUpFragment : Fragment() {
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var sharedPreference: SharedPreference
 
-    private var signInLauncher =
+    private val signInLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 val data: Intent? = result.data
